@@ -16,13 +16,17 @@ import { PhoneState } from '../../store/phone-state.interface'
 export class PhoneListContainerComponent implements OnInit {
 
   phones: Array<Phone>
+  loading: boolean
 
   constructor(private _phoneService: PhoneService, private store: Store<PhoneState>) {} 
 
   ngOnInit(): void {
     this.store.select('smartphone')
       .subscribe( state => {
-        if(state) this.phones = state.phones
+        if(state) {
+          this.phones = state.phones
+          this.loading = state.loading
+        }
         
     });
 

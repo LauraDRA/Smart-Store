@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core'
 import { MatCardModule } from '@angular/material/card'
+import { MatProgressSpinnerModule } from '@angular/material'
 
 const libraries = [
-  MatCardModule
+  MatCardModule,
+  MatProgressSpinnerModule
 ]
 
 @NgModule({
