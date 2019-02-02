@@ -1,0 +1,10 @@
+<mat-card class="phone-card">
+  <mat-card-header>
+    <mat-card-title>{{phone.title}}</mat-card-title>
+    <mat-card-subtitle>{{phone.description}}, {{phone.color}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image [src]="phone.image" [alt]="phone.title">
+  <mat-card-content>
+    <p>{{phone.price}}€</p>
+  </mat-card-content>
+</mat-card>
