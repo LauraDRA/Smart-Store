@@ -1,6 +1,6 @@
-import { ActionReducerMap } from '@ngrx/store';
+import { ActionReducerMap } from '@ngrx/store'
 
-import * as fromPhone from './phone/store/phone.reducer';
+import * as fromPhone from './phone/store/phone.reducer'
 import { PhoneState } from './phone/store/phone-state.interface'
 
 

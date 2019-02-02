@@ -15,10 +15,13 @@ import { AppComponent } from './app.component'
 
 // NGRX
 import { StoreModule } from '@ngrx/store'
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { appReducers } from './app.reducer';
+import { EffectsModule } from '@ngrx/effects'
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'
+import { appReducers } from './app.reducers'
+import { appEffects } from './app.effects'
 
-import { environment } from '../environments/environment';
+// Environment
+import { environment } from '../environments/environment'
 
 
 @NgModule({
@@ -32,6 +35,7 @@ import { environment } from '../environments/environment';
     MaterialModule,
     PhoneModule,
     StoreModule.forRoot( appReducers ),
+    EffectsModule.forRoot( appEffects ),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production // Restrict extension to log-only mode

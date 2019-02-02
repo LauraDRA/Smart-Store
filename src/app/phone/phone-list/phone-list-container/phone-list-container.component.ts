@@ -4,7 +4,7 @@ import { PhoneInterface as Phone } from '../../phone.interface'
 import { Subscription } from 'rxjs'
 import { Store } from '@ngrx/store'
 
-import { LoadPhonesActionSuccess } from '../../store/phone.actions'
+import { LoadPhonesAction } from '../../store/phone.actions'
 import { PhoneState } from '../../store/phone-state.interface'
 
 
@@ -22,17 +22,12 @@ export class PhoneListContainerComponent implements OnInit {
   ngOnInit(): void {
     this.store.select('smartphone')
       .subscribe( state => {
-        console.log(state);
         if(state) this.phones = state.phones
         
     });
 
-    this._phoneService.getPhones()
-       .subscribe((phones) => {
-          const accion = new LoadPhonesActionSuccess(phones);
-          this.store.dispatch( accion )
-       })
-    
+    const accion = new LoadPhonesAction()
+    this.store.dispatch( accion )   
     
   }
 }
