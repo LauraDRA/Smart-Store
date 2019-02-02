@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule} from '@angular/common'
+import { HttpClientModule} from '@angular/common/http'
 
 // MATERIAL
 import {MaterialModule} from '../material.module'
@@ -19,7 +20,8 @@ import { PhoneService } from './phone.service'
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
   ],
   exports: [
     PhoneListContainerComponent
