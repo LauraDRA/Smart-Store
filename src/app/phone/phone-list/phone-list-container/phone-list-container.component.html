@@ -1,2 +1,5 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
+
 <app-phone-card *ngFor="let phone of phones" [phone]="phone"></app-phone-card>
+
+<app-error-element *ngIf="error" [error]="error"></app-error-element>

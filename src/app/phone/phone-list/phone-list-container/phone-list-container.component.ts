@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store'
 
 import { LoadPhonesAction } from '../../store/phone.actions'
 import { PhoneState } from '../../store/phone-state.interface'
+import { Response } from '@angular/http';
 
 
 @Component({
@@ -17,8 +18,13 @@ export class PhoneListContainerComponent implements OnInit {
 
   phones: Array<Phone>
   loading: boolean
+  error: Response
 
-  constructor(private _phoneService: PhoneService, private store: Store<PhoneState>) {} 
+  constructor(private _phoneService: PhoneService, private store: Store<PhoneState>) {
+    this.phones = []
+    this.loading = false
+    this.error = null
+  } 
 
   ngOnInit(): void {
     this.store.select('smartphone')
@@ -26,6 +32,7 @@ export class PhoneListContainerComponent implements OnInit {
         if(state) {
           this.phones = state.phones
           this.loading = state.loading
+          this.error = state.error
         }
         
     });

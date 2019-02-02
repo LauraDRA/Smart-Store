@@ -12,6 +12,9 @@ import { PhoneCardComponent } from './phone-list/phone-card/phone-card.component
 // SERVICES
 import { PhoneService } from './phone.service'
 
+// CUSTOM MODULES
+import { SharedModule } from '../shared/shared.module';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +24,8 @@ import { PhoneService } from './phone.service'
   imports: [
     CommonModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   exports: [
     PhoneListContainerComponent

@@ -16,7 +16,7 @@ export class PhoneService {
   getPhones(): Observable<Phone[]>  {
     return this.http.get(`${ environment.serverUrl }/phones/`)
       .pipe(
-        delay(1500),
+        delay(2000),
         map( resp => resp['data'])
       )
 
