@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { PhoneService } from '../../phone.service'
-import { PhoneInterface } from '../../phone.interface'
+import { PhoneInterface as Phone } from '../../phone.interface'
 import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { LoadPhonesActionSuccess } from '../../store/phone.actions'
+import { PhoneState } from '../../store/phone-state.interface'
+
 
 @Component({
   selector: 'app-phone-list-container',
@@ -10,14 +15,24 @@ import { Subscription } from 'rxjs'
 })
 export class PhoneListContainerComponent implements OnInit {
 
-  constructor(private _phoneService: PhoneService) { }
+  phones: Array<Phone>
 
-  phones: Array<PhoneInterface>
+  constructor(private _phoneService: PhoneService, private store: Store<PhoneState>) {} 
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.store.select('smartphone')
+      .subscribe( state => {
+        console.log(state);
+        if(state) this.phones = state.phones
+        
+    });
+
     this._phoneService.getPhones()
-      .subscribe((phones) => this.phones = phones)
+       .subscribe((phones) => {
+          const accion = new LoadPhonesActionSuccess(phones);
+          this.store.dispatch( accion )
+       })
+    
     
   }
-
 }

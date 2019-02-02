@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core'
 import { of, Observable } from 'rxjs'
-import { PhoneInterface } from './phone.interface'
+import { PhoneInterface as Phone } from './phone.interface'
 
 
 @Injectable()
 export class PhoneService {
-  private phones: Array<PhoneInterface>
+  private phones: Array<Phone>
 
   constructor() { 
 
@@ -31,7 +31,7 @@ export class PhoneService {
     ]
   }
 
-  getPhones(): Observable<PhoneInterface[]> {
+  getPhones(): Observable<Phone[]> {
     return of(this.phones)
   }
 }

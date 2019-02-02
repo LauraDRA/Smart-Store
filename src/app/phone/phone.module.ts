@@ -11,10 +11,6 @@ import { PhoneCardComponent } from './phone-list/phone-card/phone-card.component
 // SERVICES
 import { PhoneService } from './phone.service'
 
-// NGRX
-import { StoreModule } from '@ngrx/store'
-import { phoneReducer } from './store/phone.reducer'
-
 
 @NgModule({
   declarations: [
@@ -23,8 +19,7 @@ import { phoneReducer } from './store/phone.reducer'
   ],
   imports: [
     CommonModule,
-    MaterialModule,
-    StoreModule.forRoot( {phones: phoneReducer} )
+    MaterialModule
   ],
   exports: [
     PhoneListContainerComponent
