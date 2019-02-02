@@ -8,7 +8,8 @@ export function phoneReducer( state: PhoneState, action: fromPhone.phoneActions 
     case fromPhone.LOAD_PHONES:
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: null
       }
 
     case fromPhone.LOAD_PHONES_SUCCESS:
