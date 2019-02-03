@@ -1,9 +1,11 @@
 import { PhoneInterface as Phone } from "../../phone.interface"
-import { Response } from '@angular/http';
+import {HttpErrorResponse} from "@angular/common/http"
 
 export interface PhonesState {
   phones: Array<Phone>,
   loaded: boolean,
   loading: boolean,
-  error: Response
+  pageNumber: number,
+  pageSize: number,
+  error: HttpErrorResponse
 }

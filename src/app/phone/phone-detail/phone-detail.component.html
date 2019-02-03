@@ -1,5 +1,6 @@
 <div class="phone-detail">
-  <h1 class="phone-detail__title">Smartphone detail</h1>
+  <app-header></app-header>
+
   <mat-spinner *ngIf="loading"></mat-spinner>
 
   <section *ngIf="phone && !loading" class="phone-detail__information">
@@ -10,13 +11,12 @@
         <mat-divider></mat-divider>
         <mat-list-item>Color: {{phone.color}}</mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item>Precio: {{phone.price}}</mat-list-item>
+        <mat-list-item>Price: {{phone.price}}</mat-list-item>
       </mat-list>
     </div>
     <div class="secondly-information">
       <p>{{phone.description}}</p>
-      <mat-expansion-panel
-                           (opened)="panelOpenState = true"
+      <mat-expansion-panel (opened)="panelOpenState = true"
                            (closed)="panelOpenState = false">
         <mat-expansion-panel-header class="expansion-panel">
           <mat-panel-title>

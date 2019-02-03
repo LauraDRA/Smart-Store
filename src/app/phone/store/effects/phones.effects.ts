@@ -21,8 +21,13 @@ export class PhonesEffects {
       switchMap((action: phonesActions.LoadPhonesAction) =>{
         return this.phoneService.getPhones(action.pageNumber, action.pageSize)
               .pipe(
-                  map( phones => new phonesActions.LoadPhonesActionSuccess(phones) ),
-                  catchError( error => of(new phonesActions.LoadPhonesFail(error)) )
+                  map( phones => {
+                    let nextPhoneActions = (action.pageNumber === 1)
+                                        ? new phonesActions.LoadPhonesActionInitial(phones)
+                                        : new phonesActions.LoadPhonesActionSuccess(phones, action.pageNumber)
+                    return nextPhoneActions
+                  } ),
+                  catchError( error => of(new phonesActions.LoadPhonesFailAction(error)) )
               )
       })
     )

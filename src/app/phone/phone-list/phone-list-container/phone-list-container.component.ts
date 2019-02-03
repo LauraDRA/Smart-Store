@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { PhoneService } from '../../phone.service'
 import { PhoneInterface as Phone } from '../../phone.interface'
 import { Store } from '@ngrx/store'
-
+import { Router, ActivatedRoute } from '@angular/router'
 import { LoadPhonesAction } from '../../store/actions/phones.actions'
 import { PhonesState } from '../../store/reducers/phones-state.interface'
-import { Response } from '@angular/http'
+import {HttpErrorResponse} from "@angular/common/http"
+import {Subscription} from "rxjs"
+import {first} from "rxjs/operators"
 
 
 @Component({
@@ -13,39 +15,63 @@ import { Response } from '@angular/http'
   templateUrl: './phone-list-container.component.html',
   styleUrls: ['./phone-list-container.component.scss']
 })
-export class PhoneListContainerComponent implements OnInit {
+export class PhoneListContainerComponent implements OnInit, OnDestroy {
 
   phones: Array<Phone>
   loading: boolean
-  error: Response
+  error: HttpErrorResponse
   pageNumber: number
   pageSize: number
 
-  constructor(private _phoneService: PhoneService, 
-              private store: Store<PhonesState>) {
+  private storeSubscribe: Subscription
+
+  constructor( private router: Router,
+               private activatedRouter: ActivatedRoute,
+               private _phoneService: PhoneService,
+               private store: Store<PhonesState>) {
     this.phones = []
     this.loading = false
     this.error = null
-    this.pageNumber = 1
+    this.pageNumber = 0
     this.pageSize = 10
   } 
 
   ngOnInit(): void {
-    this.store.select('smartphones')
+
+    this.activatedRouter.queryParams
+      .pipe(first())
+      .subscribe(params => {
+        this.pageNumber = params['pageNumber'] || this.pageNumber
+        this.pageSize = params['pageSize'] || this.pageSize
+      });
+
+    this.store.dispatch( new LoadPhonesAction(this.pageNumber, this.pageSize) )
+
+    this.storeSubscribe = this.store.select('smartphones')
       .subscribe( state => {
         if(state) {
           this.phones = state.phones
           this.loading = state.loading
           this.error = state.error
+          this.pageNumber = !state.loading? state.pageNumber: this.pageNumber
+          this.pageSize = state.pageSize
+          if(this.pageNumber) {
+            this.router.navigate(['/smartphones'], {queryParams: {'pageNumber': this.pageNumber}});
+          }
+
         }
         
-    });    
+    });
 
-    this.store.dispatch( new LoadPhonesAction() )
   }
 
+  ngOnDestroy() {
+    this.storeSubscribe.unsubscribe()
+  }
+
+
   loadMore() {
-    const action = new LoadPhonesAction(this.pageNumber++)
+    const action = new LoadPhonesAction(++this.pageNumber)
     this.store.dispatch( action )
   }
 }

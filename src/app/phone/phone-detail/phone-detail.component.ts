@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core'
+import {Component, OnDestroy, OnInit} from '@angular/core'
 import { Store } from '@ngrx/store'
 import { ActivatedRoute } from '@angular/router'
 import { PhoneState } from '../store/reducers/phone-state.interface'
 import { LoadPhoneAction } from '../store/actions/phone.actions'
 import { PhoneInterface as Phone } from '../phone.interface'
+import {Subscription} from "rxjs"
 
 
 
@@ -12,23 +13,25 @@ import { PhoneInterface as Phone } from '../phone.interface'
   templateUrl: './phone-detail.component.html',
   styleUrls: ['./phone-detail.component.scss']
 })
-export class PhoneDetailComponent implements OnInit {
+export class PhoneDetailComponent implements OnInit, OnDestroy {
 
   phone: Phone
   loading: boolean
   error: Response
+  panelOpenState:boolean
 
-  panelOpenState = false
+  private storeSubscribe: Subscription
 
   constructor( private router: ActivatedRoute,
                private store: Store<PhoneState>) { 
     this.phone = null
     this.loading = false
     this.error = null
+    this.panelOpenState = false
   }
 
   ngOnInit() {
-    this.store.select('smartphone')
+    this.storeSubscribe = this.store.select('smartphone')
       .subscribe( state => {
         if(state) {
           this.phone = state.phone
@@ -48,4 +51,7 @@ export class PhoneDetailComponent implements OnInit {
       })
   }
 
+  ngOnDestroy() {
+    this.storeSubscribe.unsubscribe()
+  }
 }
