@@ -6,6 +6,9 @@
   </ng-container>
   <app-error-element *ngIf="error && !loading" [error]="error"></app-error-element>
 </section>
-<mat-spinner *ngIf="loading"></mat-spinner>
-<button *ngIf="!loading" (click)="loadMore()">Load more</button>
 
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+<section class="phone-list__load-more">
+  <button class="load-more__button" *ngIf="!loading" (click)="loadMore()">Load more</button>
+</section>

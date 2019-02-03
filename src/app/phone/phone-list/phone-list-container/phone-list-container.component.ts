@@ -32,7 +32,7 @@ export class PhoneListContainerComponent implements OnInit, OnDestroy {
     this.phones = []
     this.loading = false
     this.error = null
-    this.pageNumber = 0
+    this.pageNumber = 1
     this.pageSize = 10
   } 
 
