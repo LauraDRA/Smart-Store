@@ -1,6 +1,6 @@
-import express from 'express'
-import bodyParser from 'body-parser'
-import { routing } from './routes.js'
+import express from 'express';
+import bodyParser from 'body-parser';
+import { routing } from './routes.js';
 
 // Set up the express app
 const app = express()
