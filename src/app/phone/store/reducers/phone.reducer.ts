@@ -1,26 +1,26 @@
 import { PhoneState } from './phone-state.interface'
-import * as fromPhone from './phone.actions'
+import * as fromPhone from '../actions/phone.actions'
 
 
 export function phoneReducer( state: PhoneState, action: fromPhone.phoneActions ): PhoneState {
 
   switch ( action.type ) {
-    case fromPhone.LOAD_PHONES:
+    case fromPhone.LOAD_PHONE:
       return {
         ...state,
         loading: true,
         error: null
       }
 
-    case fromPhone.LOAD_PHONES_SUCCESS:
+    case fromPhone.LOAD_PHONE_SUCCESS:
       return {
         ...state,
         loading: false,
         loaded: true,
-        phones: [...action.phones]
+        phone: action.phone
       }
 
-    case fromPhone.LOAD_PHONES_ERROR:
+    case fromPhone.LOAD_PHONE_ERROR:
       return {
         ...state,
         loading: false,

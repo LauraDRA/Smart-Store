@@ -1,0 +1,42 @@
+.phone-detail {
+  max-width: 700px;
+  margin: auto;
+  padding: 0 5vW;
+
+  .phone-detail__title {
+    border-bottom: solid;
+  }
+  .phone-detail__information {
+    padding: 30px 0;
+  }
+  .phone-detail__information--main {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .phone-detail__phone-image {
+      width: 100%;
+      max-width: 350px;
+      max-height: 500px;
+      object-fit: contain;
+    }
+    .phone-detail__phone-name {
+      height: inherit;
+      h2 {
+        font-size: 2em;
+        margin: 15px 0;
+      }
+    }
+    mat-list {
+      padding: 20px 0;
+    }
+  }
+
+  .expansion-panel{
+    background-color: darkgrey;
+    &:hover {
+      background-color: gray;
+    }
+  }
+}
+
+

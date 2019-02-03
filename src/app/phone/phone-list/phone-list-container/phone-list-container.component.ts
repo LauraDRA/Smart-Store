@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core'
 import { PhoneService } from '../../phone.service'
 import { PhoneInterface as Phone } from '../../phone.interface'
-import { Subscription } from 'rxjs'
 import { Store } from '@ngrx/store'
 
-import { LoadPhonesAction } from '../../store/phone.actions'
-import { PhoneState } from '../../store/phone-state.interface'
-import { Response } from '@angular/http';
+import { LoadPhonesAction } from '../../store/actions/phones.actions'
+import { PhonesState } from '../../store/reducers/phones-state.interface'
+import { Response } from '@angular/http'
 
 
 @Component({
@@ -19,15 +18,20 @@ export class PhoneListContainerComponent implements OnInit {
   phones: Array<Phone>
   loading: boolean
   error: Response
+  pageNumber: number
+  pageSize: number
 
-  constructor(private _phoneService: PhoneService, private store: Store<PhoneState>) {
+  constructor(private _phoneService: PhoneService, 
+              private store: Store<PhonesState>) {
     this.phones = []
     this.loading = false
     this.error = null
+    this.pageNumber = 1
+    this.pageSize = 10
   } 
 
   ngOnInit(): void {
-    this.store.select('smartphone')
+    this.store.select('smartphones')
       .subscribe( state => {
         if(state) {
           this.phones = state.phones
@@ -35,10 +39,13 @@ export class PhoneListContainerComponent implements OnInit {
           this.error = state.error
         }
         
-    });
+    });    
 
-    const accion = new LoadPhonesAction()
-    this.store.dispatch( accion )   
-    
+    this.store.dispatch( new LoadPhonesAction() )
+  }
+
+  loadMore() {
+    const action = new LoadPhonesAction(this.pageNumber++)
+    this.store.dispatch( action )
   }
 }

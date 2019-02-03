@@ -1,5 +1,7 @@
-import { PhoneEffects } from "./phone/store/phone.effects"
+import { PhonesEffects } from "./phone/store/effects/phones.effects"
+import { PhoneEffects } from "./phone/store/effects/phone.effects"
 
-export const appEffects = [PhoneEffects]
+export const appEffects = [PhonesEffects, PhoneEffects]
 
-export * from './phone/store/phone.effects'
+export * from './phone/store/effects/phones.effects'
+export * from './phone/store/effects/phone.effects'

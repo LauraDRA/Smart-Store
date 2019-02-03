@@ -1,0 +1,32 @@
+<div class="phone-detail">
+  <h1 class="phone-detail__title">Smartphone detail</h1>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+
+  <section *ngIf="phone && !loading" class="phone-detail__information">
+    <div class="phone-detail__information--main">
+      <img class="phone-detail__phone-image" [src]="phone.image"/>
+      <mat-list>
+        <mat-list-item class="phone-detail__phone-name"><h2>{{phone.title}}</h2></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Color: {{phone.color}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Precio: {{phone.price}}</mat-list-item>
+      </mat-list>
+    </div>
+    <div class="secondly-information">
+      <p>{{phone.description}}</p>
+      <mat-expansion-panel
+                           (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header class="expansion-panel">
+          <mat-panel-title>
+            More specifications
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>{{phone.characteristics}}</p>
+      </mat-expansion-panel>
+    </div>
+  </section>
+
+  <app-error-element *ngIf="error  && !loading" [error]="error"></app-error-element>
+</div>

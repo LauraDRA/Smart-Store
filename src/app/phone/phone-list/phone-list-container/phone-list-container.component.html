@@ -1,5 +1,10 @@
+<h1 class="phone-list__title"> Smartphones </h1>
+<section class="phone-list__container">
+  <ng-container *ngIf="phones.length">
+    <app-phone-card *ngFor="let phone of phones" [phone]="phone"></app-phone-card>
+  </ng-container>
+  <app-error-element *ngIf="error && !loading" [error]="error"></app-error-element>
+</section>
 <mat-spinner *ngIf="loading"></mat-spinner>
+<button (click)="loadMore()">CARGAR MAS</button>
 
-<app-phone-card *ngFor="let phone of phones" [phone]="phone"></app-phone-card>
-
-<app-error-element *ngIf="error" [error]="error"></app-error-element>

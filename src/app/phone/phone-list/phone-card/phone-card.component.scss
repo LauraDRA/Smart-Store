@@ -1,5 +1,14 @@
 .phone-card {
-  max-width: 400px;
-  background-color: whitesmoke;
-  margin: 20px;
+  text-decoration: none;
+  .mat-card {
+    max-width: 400px;
+    background-color: whitesmoke;
+    margin: 20px;
+  }
+}
+
+.mat-card-image {
+  max-height: 400px;
+  object-fit: contain;
+  background-color: white;
 }
