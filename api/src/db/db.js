@@ -1,6 +1,5 @@
 import casual from 'casual'
 
-
 /**
  *  Generation Mock DB
  */
@@ -45,17 +44,15 @@ const modelsPhones = [
     },
 ]
 
-
 casual.define('phoneMock', (id) => {
     let random = casual.integer(0, modelsPhones.length-1)
     return {
         id: id,
-        title: modelsPhones[random].title,
         description: casual.words(5),
         color: casual.safe_color_name,
-        image: modelsPhones[random].image,
         price: Number.parseInt(casual.integer(200, 1000)),
-        characteristics: casual.description
+        characteristics: casual.description,
+        ...modelsPhones[random]
     }
 })
 
@@ -70,7 +67,6 @@ const generateMockListPhones = (maxAmount) => {
 
 const smartphones = generateMockListPhones(totalSmarthPhones)
 
-
 /**
  *  Functions API
  */
@@ -80,8 +76,8 @@ export const PhoneMockController = {
     getMockPhoneList: () => smartphones,
 
     getMockPhoneListPagination: (queryParams) => {
-        let pageNumber = queryParams.pageNumber
-        let pageSize = queryParams.pageSize
+        let pageNumber = queryParams.pageNumber ? queryParams.pageNumber : 1
+        let pageSize = queryParams.pageSize ? queryParams.pageSize : 10
         return smartphones.slice(pageSize * (pageNumber - 1), pageSize * pageNumber)
     },
 

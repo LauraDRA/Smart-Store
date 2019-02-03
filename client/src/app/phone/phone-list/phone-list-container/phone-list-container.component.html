@@ -9,6 +9,6 @@
 
 <mat-spinner *ngIf="loading"></mat-spinner>
 
-<section class="phone-list__load-more">
+<section class="phone-list__load-more" *ngIf="!error && (pageNumber*pageSize)<100">
   <button class="load-more__button" *ngIf="!loading" (click)="loadMore()">Load more</button>
 </section>
