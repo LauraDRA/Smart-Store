@@ -73,7 +73,7 @@ describe('PhoneDetailComponent', () => {
   });
 
   it('should not load phone details after dispatch error action and show error', () => {
-    const mockError = {code:404, success: 'false', message: 'phone not found'}
+    const mockError = {status:404, success: 'false', message: 'phone not found'}
 
 
     const action = new LoadPhoneFail(mockError)
@@ -81,7 +81,7 @@ describe('PhoneDetailComponent', () => {
     store.dispatch(action);
 
     component.selectedStore$.subscribe(data => {
-      expect(data.error.code).toEqual(404)
+      expect(data.error.status).toEqual(404)
       expect(data.phone).toBeNull()
     });
   });

@@ -103,7 +103,7 @@ describe('HeaderComponent', () => {
   })
 
   it('should display 0 phones when LoadPhonesFailAction is dispatched', () => {
-    const mockError = {code:404, success: 'false', message: 'phone not found'}
+    const mockError = {status:404, success: 'false', message: 'phone not found'}
 
     const action = new LoadPhonesFailAction(mockError)
 

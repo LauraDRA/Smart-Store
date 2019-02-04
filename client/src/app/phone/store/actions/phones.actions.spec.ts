@@ -55,7 +55,7 @@ describe('PhonesActions:', () => {
   })
 
   it('LoadPhonesFailAction should create an action and load error', () => {
-    const mockError = {code:404, success: 'false', message: 'phone not found'}
+    const mockError = {status:404, success: 'false', message: 'phone not found'}
     const action = new fromPhones.LoadPhonesFailAction(mockError)
 
     expect(action.type).toEqual(fromPhones.LOAD_PHONES_ERROR)
