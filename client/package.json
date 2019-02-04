@@ -6,8 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "test:coverage": "ng test --code-coverage"
   },
   "private": true,
   "author": "Laura Del Rio Aviles, LauraDRA <laura.delrio.aviles@gmail.com>",

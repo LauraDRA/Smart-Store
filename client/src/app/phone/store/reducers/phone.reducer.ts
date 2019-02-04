@@ -25,7 +25,8 @@ export function phoneReducer( state: PhoneState, action: fromPhone.phoneActions 
         ...state,
         loading: false,
         loaded: false,
-        error: action.payload
+        error: action.payload,
+        phone: null
       }
   
     default:

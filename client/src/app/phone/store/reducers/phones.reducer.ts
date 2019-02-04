@@ -50,7 +50,8 @@ export function phonesReducer( state: PhonesState = initialState, action: fromPh
         ...state,
         loading: false,
         loaded: false,
-        error: action.payload
+        error: action.payload,
+        phones: []
       }
   
     default:

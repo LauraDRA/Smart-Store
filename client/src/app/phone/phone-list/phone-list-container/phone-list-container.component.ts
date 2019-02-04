@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
-import { PhoneService } from '../../phone.service'
 import { PhoneInterface as Phone } from '../../phone.interface'
 import { Store } from '@ngrx/store'
 import { Router, ActivatedRoute } from '@angular/router'
 import { LoadPhonesAction } from '../../store/actions/phones.actions'
 import { PhonesState } from '../../store/reducers/phones-state.interface'
 import {HttpErrorResponse} from "@angular/common/http"
-import {Subscription} from "rxjs"
+import {Observable, Subscription} from "rxjs"
 import {first} from "rxjs/operators"
 
 
@@ -22,18 +21,19 @@ export class PhoneListContainerComponent implements OnInit, OnDestroy {
   error: HttpErrorResponse
   pageNumber: number
   pageSize: number
+  selectedStore$: Observable<PhonesState>
 
   private storeSubscribe: Subscription
 
   constructor( private router: Router,
                private activatedRouter: ActivatedRoute,
-               private _phoneService: PhoneService,
                private store: Store<PhonesState>) {
     this.phones = []
     this.loading = false
     this.error = null
     this.pageNumber = 1
     this.pageSize = 10
+    this.selectedStore$ = this.store.select('smartphones')
   } 
 
   ngOnInit(): void {
@@ -47,8 +47,7 @@ export class PhoneListContainerComponent implements OnInit, OnDestroy {
 
     this.store.dispatch( new LoadPhonesAction(this.pageNumber, this.pageSize) )
 
-    this.storeSubscribe = this.store.select('smartphones')
-      .subscribe( state => {
+    this.storeSubscribe = this.selectedStore$.subscribe( state => {
         if(state) {
           this.phones = state.phones
           this.loading = state.loading
